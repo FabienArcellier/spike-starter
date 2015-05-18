@@ -31,8 +31,6 @@ def main():
         project_repository = git.Repo.init(project_directory)
         logInformation("PROJECT GIT REPOSITORY : {} [OK]".format(project_directory))
 
-        # Creer un fichier .gitignore
-
 
     except SystemExit:
         sys.exit(1)
@@ -42,7 +40,7 @@ def main():
         sys.exit(1)
 
 def logAlert(text):
-    print "[ALERT] %s" % text
+    print "[ALERT] {}".format(text)
 
 def logInformation(text):
     print "[INFO] ", text
