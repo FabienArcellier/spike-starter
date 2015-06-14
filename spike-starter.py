@@ -1,24 +1,37 @@
 #!/usr/bin/python
 
 import sys, traceback
-import os
+import os, getopt
 import git
 from datetime import datetime
 
-def main():
+def main(argv):
     try:
         # Read project name from command line
-        project_name = sys.argv[1]
+        template_dir = ""
+        template=False
+        opts, args = getopt.getopt(argv, "ht:", ["help", "template="])
+        for opt, arg in opts:
+            if opt in ("-h", "--help"):
+                usage()
+                sys.exit()
+            elif opt in ("-t", "--template"):
+                template = True
+                template_dir = arg
 
         spikeStarter = SpikeStarter()
+        for project_name in args:
 
-        # Create project directory
-        project_directory_name = spikeStarter.getProjectPath(project_name)
-        project_directory = os.path.abspath(project_directory_name)
-        spikeStarter.createProjectDirectory(project_directory)
+            # Create project directory
+            project_directory_name = spikeStarter.getProjectPath(project_name)
+            project_directory = os.path.abspath(project_directory_name)
+            spikeStarter.createProjectDirectory(project_directory)
 
-        # Initialize git repository
-        spikeStarter.createGitLocalRepository(project_directory)
+            # Initialize git repository
+            spikeStarter.createGitLocalRepository(project_directory)
+
+            if template:
+                spikeStarter.importTemplateDirectory(project_directory, template_dir)
 
     except SystemExit:
         sys.exit(1)
@@ -27,6 +40,9 @@ def main():
         print "Unexpected error:"
         traceback.print_exc(file=sys.stdout)
         sys.exit(1)
+
+def usage():
+    print "python %s (-h) [-t template_path] projects" % (sys.argv[0])
 
 class SpikeStarter:
 
@@ -52,6 +68,11 @@ class SpikeStarter:
         project_repository = git.Repo.init(path)
         logInformation("PROJECT GIT REPOSITORY : {} [OK]".format(path))
 
+    def importTemplateDirectory(self, destination, source):
+        pass
+
+
+
 def logAlert(text):
     print "[ALERT] {}".format(text)
 
@@ -62,4 +83,4 @@ def logDebug(text):
     print "[DEBUG] ", text
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1:])
