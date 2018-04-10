@@ -7,6 +7,8 @@ import getopt
 import git
 from datetime import datetime
 
+def cli():
+  main(sys.argv[1:])
 
 def main(argv):
   try:
