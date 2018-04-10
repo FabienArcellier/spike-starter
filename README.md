@@ -8,7 +8,7 @@ experiment.
 ```bash
 # Simple usage
 python -m spike-starter myproject
-# This command will generate 20180410_0722-myproject
+# This command will generate 20180410_0722__myproject
 ```
 
 It allow to use an existing directory as a reference
@@ -17,6 +17,15 @@ It allow to use an existing directory as a reference
 # Generate a directory based on a template
 python -m spike-starter --template ~/template/java myproject
 python -m spike-starter -t ~/template/java myproject
+```
+
+## Usage with alias
+
+An alias can be use to generate a spike based on a specific stack.
+
+```bash
+alias spike-starter-python='spike-starter -t ~/projects/0004-spikes_template/python_spike'
+alias spike-starter-python3='spike-starter -t ~/projects/0004-spikes_template/python3_spike'
 ```
 
 ## Installation
