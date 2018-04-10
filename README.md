@@ -1,5 +1,7 @@
 # Spike starter
 
+[![Build Status](https://travis-ci.org/FabienArcellier/spike-starter.svg?branch=master)](https://travis-ci.org/FabienArcellier/spike-starter)
+
 this tool allow to create a project prefix with the date and the time to
 experiment.
 
