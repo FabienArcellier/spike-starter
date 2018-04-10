@@ -4,6 +4,7 @@ import sys
 import traceback
 import os
 import getopt
+import shutil
 import git
 from datetime import datetime
 
@@ -77,7 +78,7 @@ class SpikeStarter:
     logInformation("PROJECT GIT REPOSITORY : {} [OK]".format(path))
 
   def importTemplateDirectory(self, destination, source):
-    pass
+    shutil.copytree(source, destination, ignore=shutil.ignore_patterns('.git'))
 
 
 def logAlert(text):

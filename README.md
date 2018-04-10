@@ -30,4 +30,12 @@ cd spike-starter
 pip install .
 ```
 
+## Contribute
 
+### Validation
+
+A pull request on Spike starter should pass the automatic tests.
+
+```bash
+make tests
+```
