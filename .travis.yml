@@ -1,7 +1,7 @@
 language: python
 
 install:
-  - pip install.
+  - make venv
 
-tests:
+script:
   - make tests
