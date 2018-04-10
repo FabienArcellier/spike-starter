@@ -1,11 +1,18 @@
 # Spike starter
 
+this tool allow to create a project prefix with the date and the time to
+experiment.
+
 ```bash
 # Simple usage
 python -m spike-starter myproject
-python -m spike-starter myproject myproject2
+# This command will generate 20180410_0722-myproject
+```
 
-# Usage with template
+It allow to use an existing directory as a reference
+
+```bash
+# Generate a directory based on a template
 python -m spike-starter --template ~/template/java myproject
 python -m spike-starter -t ~/template/java myproject
 ```
