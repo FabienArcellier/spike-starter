@@ -31,13 +31,16 @@ def main(argv):
       # Create project directory
       project_directory_name = spikeStarter.getProjectPath(project_name)
       project_directory = os.path.abspath(project_directory_name)
-      spikeStarter.createProjectDirectory(project_directory)
+
+      if template:
+        spikeStarter.importTemplateDirectory(project_directory, template_dir)
+      else:
+        spikeStarter.createProjectDirectory(project_directory)
 
       # Initialize git repository
       spikeStarter.createGitLocalRepository(project_directory)
 
-      if template:
-        spikeStarter.importTemplateDirectory(project_directory, template_dir)
+
 
   except SystemExit:
     sys.exit(1)
