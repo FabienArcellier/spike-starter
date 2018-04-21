@@ -4,6 +4,11 @@
 help: ## provides cli help for this make file (default)
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
+.PHONY: lint
+lint: ## provides cli help for this make file (default)
+	@. venv/bin/activate; pylint --rcfile=.pylintrc spike_starter
+
+
 .PHONY: tests
 tests: tests_integrations ## run all validation tests
 
