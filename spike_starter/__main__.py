@@ -1,5 +1,7 @@
 #!/usr/bin/python
 
+from __future__ import print_function
+from builtins import object
 import getopt
 import logging
 import os
@@ -55,7 +57,7 @@ def main(argv):
 
 
 def usage():
-  print "python %s (-h) [-t template_path] projects" % (sys.argv[0])
+  print("python %s (-h) [-t template_path] projects" % (sys.argv[0]))
 
 
 class SpikeStarter(object):
@@ -88,15 +90,15 @@ class SpikeStarter(object):
 
 
 def log_alert(text):
-  print "[ALERT] {}".format(text)
+  print("[ALERT] {}".format(text))
 
 
 def log_information(text):
-  print "[INFO] ", text
+  print("[INFO] ", text)
 
 
 def log_debug(text):
-  print "[DEBUG] ", text
+  print("[DEBUG] ", text)
 
 
 if __name__ == "__main__":

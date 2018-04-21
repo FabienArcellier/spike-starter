@@ -12,7 +12,8 @@ setup(
     'Environment :: Console',
     'Intended Audience :: Developers',
     'Intended Audience :: System Administrators',
-    'Programming Language :: Python :: 2'
+    'Programming Language :: Python :: 2',
+    'Programming Language :: Python :: 3'
   ],
   entry_points={
     'console_scripts': [
@@ -21,6 +22,12 @@ setup(
   },
   install_requires=[
     'click',
-    'GitPython'
-  ]
+    'GitPython',
+    'future'
+  ],
+  extras_require={
+      'dev': [
+          'pylint'
+      ]
+  }
 )

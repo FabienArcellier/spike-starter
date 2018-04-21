@@ -13,18 +13,25 @@ lint3: ## provides cli help for this make file (default) for python 3
 	@. venv3/bin/activate; pylint --rcfile=.pylintrc spike_starter
 
 .PHONY: tests
-tests: tests_integrations ## run all validation tests
+tests: tests_integrations ## run all validation tests for python 2
+
+.PHONY: tests3
+tests3: tests_integrations3 ## run all validation tests for python 3
 
 .PHONY: tests_integrations
 tests_integrations: ## run integrations tests
 	@. venv/bin/activate; python -u -m unittest discover ${args} spike_starter_tests/integrations
 
+.PHONY: tests_integrations3
+tests_integrations3: ## run integrations tests
+	@. venv3/bin/activate; python -u -m unittest discover ${args} spike_starter_tests/integrations
+
 .PHONY: venv
 venv: ## generate python 2.7 virtualenv in venv directory
 	virtualenv venv
-	@. venv/bin/activate; pip install .
+	@. venv/bin/activate; pip install -e.[dev]
 
 .PHONY: venv3
 venv3: ## generate python 3 virtualenv in venv directory
 	virtualenv -p /usr/bin/python3 venv3
-	@. venv3/bin/activate; pip install .
+	@. venv3/bin/activate; pip install -e.[dev]

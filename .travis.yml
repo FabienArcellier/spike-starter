@@ -2,6 +2,10 @@ language: python
 
 install:
   - make venv
+  - make venv3
 
 script:
+  - make lint
   - make tests
+  - make lint3
+  - make tests3
