@@ -17,7 +17,7 @@ class TestSpikeStarter(unittest.TestCase):
 
     try:
       # Acts
-      self._tested.importTemplateDirectory(destination, source)
+      self._tested.import_template_directory(destination, source)
 
       # Assert
       expected_path = os.path.join(destination, 'file.txt')
@@ -34,7 +34,7 @@ class TestSpikeStarter(unittest.TestCase):
 
     try:
       # Acts
-      self._tested.importTemplateDirectory(destination, source)
+      self._tested.import_template_directory(destination, source)
 
       # Assert
       expected_path = os.path.join(destination, '.git')

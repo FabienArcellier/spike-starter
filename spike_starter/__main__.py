@@ -1,17 +1,21 @@
 #!/usr/bin/python
 
-import sys
-import traceback
-import os
 import getopt
+import logging
+import os
 import shutil
-import git
+import sys
 from datetime import datetime
+
+import git
+
 
 def cli():
   main(sys.argv[1:])
 
+
 def main(argv):
+  # pylint: disable=broad-except
   try:
     # Read project name from command line
     template_dir = ""
@@ -25,29 +29,28 @@ def main(argv):
         template = True
         template_dir = arg
 
-    spikeStarter = SpikeStarter()
+    spike_starter = SpikeStarter()
     for project_name in args:
 
       # Create project directory
-      project_directory_name = spikeStarter.getProjectPath(project_name)
+      project_directory_name = spike_starter.get_project_path(project_name)
       project_directory = os.path.abspath(project_directory_name)
 
       if template:
-        spikeStarter.importTemplateDirectory(project_directory, template_dir)
+        spike_starter.import_template_directory(project_directory, template_dir)
       else:
-        spikeStarter.createProjectDirectory(project_directory)
+        spike_starter.create_project_directory(project_directory)
 
       # Initialize git repository
-      spikeStarter.createGitLocalRepository(project_directory)
+      spike_starter.create_git_local_repository(project_directory)
 
 
 
   except SystemExit:
     sys.exit(1)
 
-  except:
-    print "Unexpected error:"
-    traceback.print_exc(file=sys.stdout)
+  except Exception:
+    logging.exception("Unexpected error:")
     sys.exit(1)
 
 
@@ -55,45 +58,46 @@ def usage():
   print "python %s (-h) [-t template_path] projects" % (sys.argv[0])
 
 
-class SpikeStarter:
+class SpikeStarter(object):
 
   def __init__(self):
     pass
 
-  def getProjectPath(self, projectName):
+  def get_project_path(self, project_name):
     # project id from today date
     now = datetime.now()
     project_id = "{0:d}{1:0>2d}{2:0>2d}_{3:0>2d}{4:0>2d}".format(
-        now.year, now.month, now.day, now.hour, now.minute)
-    logDebug("project_id: {}".format(project_id))
-    return "{}__{}".format(project_id, projectName)
+      now.year, now.month, now.day, now.hour, now.minute)
+    log_debug("project_id: {}".format(project_id))
+    return "{}__{}".format(project_id, project_name)
 
-  def createProjectDirectory(self, path):
+  def create_project_directory(self, path):
     if not os.path.exists(path):
       os.makedirs(path)
-      logInformation("PROJECT DIRECTORY : {} [OK]".format(path))
+      log_information("PROJECT DIRECTORY : {} [OK]".format(path))
     else:
-      logAlert("Project already exits %s" % path)
+      log_alert("Project already exits %s" % path)
       sys.exit(1)
 
-  def createGitLocalRepository(self, path):
-    project_repository = git.Repo.init(path)
-    logInformation("PROJECT GIT REPOSITORY : {} [OK]".format(path))
+  def create_git_local_repository(self, path):
+    git.Repo.init(path)
+    log_information("PROJECT GIT REPOSITORY : {} [OK]".format(path))
 
-  def importTemplateDirectory(self, destination, source):
+  def import_template_directory(self, destination, source):
     shutil.copytree(source, destination, ignore=shutil.ignore_patterns('.git'))
 
 
-def logAlert(text):
+def log_alert(text):
   print "[ALERT] {}".format(text)
 
 
-def logInformation(text):
+def log_information(text):
   print "[INFO] ", text
 
 
-def logDebug(text):
+def log_debug(text):
   print "[DEBUG] ", text
+
 
 if __name__ == "__main__":
   main(sys.argv[1:])
