@@ -1,3 +1,5 @@
 /.idea
 **.pyc
 /venv
+/venv3
+/spike_starter.egg-info
