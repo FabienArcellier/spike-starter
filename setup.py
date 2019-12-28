@@ -26,7 +26,8 @@ setup(
   extras_require={
     'dev': [
       'pylint',
-      'tox'
+      'tox',
+      'twine'
     ]
   }
 )
