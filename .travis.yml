@@ -4,5 +4,4 @@ install:
   - make venv
 
 script:
-  - make lint
-  - make tests
+  - make ci

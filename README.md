@@ -45,9 +45,23 @@ pip install .
 
 ### Validation
 
-A pull request on Spike starter should pass the automatic tests.
+A pull request must pass the continuous integration process
+to be merged on ``master``.
 
 ```bash
-make lint
-make tests
+make ci
+```
+
+### List all automation taks
+
+```
+$make
+
+ci                             run continuous integration process on spike-starter
+help                           provides cli help for this make file (default)
+install                        install python dependencies
+lint                           run static analysis on spike-starter
+tests_integrations             run only integrations testing on spike-starter
+tests                          run automatic testing on spike-starter
+venv                           build virtualenv in ./venv directory and install python dependencies
 ```
