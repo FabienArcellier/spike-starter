@@ -48,6 +48,18 @@ pip install .
 A pull request on Spike starter should pass the automatic tests.
 
 ```bash
-make lint
-make tests
+make ci
+```
+
+### Available operations
+
+```
+$make
+
+ci                             execute continuous integration process on spike-starter
+help                           provides cli help for this make file (default)
+lint                           provides cli help for this make file (default) for python 3
+tests_integrations             run integrations tests
+tests                          run all validation tests for python 3
+venv                           generate python 3 virtualenv in venv directory
 ```
