@@ -5,9 +5,10 @@ from setuptools import setup, find_packages
 setup(
   name='spike_starter',
   version='0.0.7',
-  packages=find_packages(exclude=["*_tests"]),
+  packages=find_packages(exclude=["spike_starter_tests", "spike_starter_tests.*"]),
   license='',
   long_description=open('README.md').read(),
+  long_description_content_type="text/markdown",
   classifiers=[
     'Environment :: Console',
     'Intended Audience :: Developers',
