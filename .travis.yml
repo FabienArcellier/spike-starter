@@ -5,3 +5,9 @@ install:
 
 script:
   - make ci
+
+deploy:
+  provider: script
+  script: make cd
+  on:
+    tags: true
