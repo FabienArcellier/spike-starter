@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
   name='spike_starter',
-  version='0.0.5',
+  version='0.0.6',
   packages=find_packages(exclude=["*_tests"]),
   license='',
   long_description=open('README.md').read(),
@@ -12,7 +12,6 @@ setup(
     'Environment :: Console',
     'Intended Audience :: Developers',
     'Intended Audience :: System Administrators',
-    'Programming Language :: Python :: 2',
     'Programming Language :: Python :: 3'
   ],
   entry_points={
@@ -22,12 +21,12 @@ setup(
   },
   install_requires=[
     'click',
-    'GitPython',
-    'future'
+    'GitPython'
   ],
   extras_require={
-      'dev': [
-          'pylint'
-      ]
+    'dev': [
+      'pylint',
+      'tox'
+    ]
   }
 )

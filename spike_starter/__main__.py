@@ -1,7 +1,5 @@
 #!/usr/bin/python
 
-from __future__ import print_function
-from builtins import object
 import getopt
 import logging
 import os
@@ -60,7 +58,7 @@ def usage():
   print("python %s (-h) [-t template_path] projects" % (sys.argv[0]))
 
 
-class SpikeStarter(object):
+class SpikeStarter:
 
   def __init__(self):
     pass
