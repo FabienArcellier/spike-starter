@@ -6,7 +6,6 @@ help: ## provides cli help for this make file (default)
 
 .PHONY: ci
 ci: lint tests dist ## run continuous integration process on spike-starter
-	@. venv/bin/activate; python -u -m unittest discover ${args} spike_starter_tests/continuous_integration
 
 .PHONY: lint
 lint: ## run static analysis on spike-starter
@@ -14,7 +13,9 @@ lint: ## run static analysis on spike-starter
 
 .PHONY: dist
 dist: ## build distribution archives
+	rm -rf dist
 	@. venv/bin/activate; python setup.py sdist bdist_wheel
+	@. venv/bin/activate; python -u -m unittest discover ${args} spike_starter_tests/continuous_integration
 
 .PHONY: tests
 tests: tests_integrations ## run automatic testing on spike-starter

@@ -58,6 +58,7 @@ make ci
 $make
 
 ci                             run continuous integration process on spike-starter
+dist                           build distribution archives
 help                           provides cli help for this make file (default)
 install                        install python dependencies
 lint                           run static analysis on spike-starter
