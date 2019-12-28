@@ -4,11 +4,7 @@
 ci: lint tests dist ## run continuous integration process on spike-starter
 
 .PHONY: cd
-cd: lint tests dist deploy_pypi ## run continuous delivery process on spike-starter
-
-.PHONY: deploy_pypi
-deploy_pypi: dist
-	@. venv/bin/activate; twine upload dist/*
+cd: _deploy_pypi ## run continuous deployment process on spike-starter
 
 .PHONY: dist
 dist: ## build distribution archives
@@ -44,5 +40,9 @@ venv: ## build virtualenv in ./venv directory and install python dependencies
 	virtualenv -p python3 venv
 	$(MAKE) install
 
+# Private tasks
 
+.PHONY: _deploy_pypi
+_deploy_pypi: dist
+	@. venv/bin/activate; twine upload dist/*
 

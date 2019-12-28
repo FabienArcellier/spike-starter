@@ -43,7 +43,7 @@ pip install .
 
 ## Contribute
 
-### Validation
+### Continuous integration process
 
 A pull request must pass the continuous integration process
 to be merged on ``master``.
@@ -52,12 +52,21 @@ to be merged on ``master``.
 make ci
 ```
 
-### List all automation taks
+### Continuous deployment process
+
+The automation task ``make deploy_current_version`` will trigger a deployment
+based on tag generation.
+
+Travis.ci will deploy the current tagged version on PyPi.
+
+### List automation tasks
 
 ```
 $make
 
+cd                             run continuous deployment process on spike-starter
 ci                             run continuous integration process on spike-starter
+deploy_current_version         deploy the current spike-starter version through travis.ci
 dist                           build distribution archives
 help                           provides cli help for this make file (default)
 install                        install python dependencies
