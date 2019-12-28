@@ -13,5 +13,6 @@ script:
 deploy:
   provider: script
   script: make cd
+  skip_cleanup: true
   on:
     tags: true
