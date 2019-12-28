@@ -7,6 +7,7 @@ import unittest
 from spike_starter.__main__ import SpikeStarter
 from spike_starter_tests.fixtures import clone_template
 
+
 class TestSpikeStarter(unittest.TestCase):
   def setUp(self):
     self._tested = SpikeStarter()
