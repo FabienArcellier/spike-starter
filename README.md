@@ -45,21 +45,23 @@ pip install .
 
 ### Validation
 
-A pull request on Spike starter should pass the automatic tests.
+A pull request must pass the continuous integration process
+to be merged on ``master``.
 
 ```bash
 make ci
 ```
 
-### Available operations
+### List all automation taks
 
 ```
 $make
 
-ci                             execute continuous integration process on spike-starter
+ci                             run continuous integration process on spike-starter
 help                           provides cli help for this make file (default)
-lint                           provides cli help for this make file (default) for python 3
-tests_integrations             run integrations tests
-tests                          run all validation tests for python 3
-venv                           generate python 3 virtualenv in venv directory
+install                        install python dependencies
+lint                           run static analysis on spike-starter
+tests_integrations             run only integrations testing on spike-starter
+tests                          run automatic testing on spike-starter
+venv                           build virtualenv in ./venv directory and install python dependencies
 ```
