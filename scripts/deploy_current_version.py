@@ -8,7 +8,7 @@ import pkg_resources
 from git import Repo
 
 SCRIPT_DIR = os.path.realpath(os.path.join(__file__, '..'))
-ROOT_DIR = os.path.realpath(os.path.join(SCRIPT_DIR, '..', '..'))
+ROOT_DIR = os.path.realpath(os.path.join(SCRIPT_DIR, '..'))
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('tag')
@@ -26,7 +26,7 @@ def main(arguments):
     raise OSError('the version {} has already been deployed'.format(target_tag))
 
   _system('git tag -a {} -m ""'.format(target_tag))
-  _system('git push {}'.format(target_tag))
+  _system('git push origin {}'.format(target_tag))
 
 
 # BOILERPLATE TO REPRODUCE -ex behavior of bash
