@@ -48,5 +48,6 @@ pip install .
 A pull request on Spike starter should pass the automatic tests.
 
 ```bash
+make lint
 make tests
 ```
