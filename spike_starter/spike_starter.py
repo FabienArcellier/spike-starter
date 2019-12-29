@@ -24,7 +24,8 @@ class SpikeStarter:
   def create_project_directory(self, path):
     if not os.path.exists(path):
       os.makedirs(path)
-      self.logger.info("PROJECT DIRECTORY :%s [OK]", path)
+      self.logger.info("The spike project is ready.")
+      self.logger.info("DIRECTORY :%s [OK]", path)
     else:
       self.logger.info("Project already exits %s", path)
       raise OSError()

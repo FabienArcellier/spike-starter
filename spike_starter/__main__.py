@@ -5,8 +5,10 @@ import logging
 import os
 import sys
 
-
 from spike_starter.spike_starter import SpikeStarter
+
+
+logging.basicConfig(level=logging.INFO)
 
 
 def cli():
