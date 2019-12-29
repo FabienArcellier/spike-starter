@@ -43,7 +43,7 @@ and a new repository is iniated inside.
 
 ```bash
 # Generate a directory based on a template
-spike-starter --template https://github.com/FabienArcellier/blueprint-webapp-flask.git
+spike-starter --template https://github.com/FabienArcellier/blueprint-webapp-flask.git myproject
 ```
 
 ## Advanced usage
