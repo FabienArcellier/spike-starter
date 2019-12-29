@@ -67,6 +67,8 @@ class TestSpikeStarter(unittest.TestCase):
       shutil.rmtree(destination)
 
   def test_import_template_directory_should_clone_git_remote_repository_by_ssh(self):
+    self.skipTest('install ssh key on travis-ci is complex, I keep the test for manual validation')
+
     # Assign
     source = 'git@github.com:FabienArcellier/spike-starter.git'
     destination = tempfile.mktemp(prefix='spike_starter_integrations_')
