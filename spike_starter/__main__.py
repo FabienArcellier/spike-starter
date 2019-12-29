@@ -17,8 +17,6 @@ def cli():
 
 
 def main(argv):
-  logger = logging.getLogger('spike-starter')
-
   # pylint: disable=broad-except
   try:
     # Read project name from command line
@@ -107,6 +105,9 @@ class SpikeStarter:
   def _blueprint_origin(self, source: str) -> bool:
     blueprint_origin = None
     if source.endswith('.git') and source.startswith('https://'):
+      blueprint_origin = 'git'
+
+    if source.endswith('.git') and source.startswith('git@'):
       blueprint_origin = 'git'
 
     if os.path.exists(source):

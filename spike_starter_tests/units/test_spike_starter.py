@@ -17,6 +17,13 @@ class TestSpikeStarter(unittest.TestCase):
     # Assert
     self.assertEqual('git', blueprint_origin)
 
+  def test_blueprint_origin_is_git_when_it_s_end_with_dot_git_and_support_ssh(self):
+    # Acts
+    blueprint_origin = self._tested._blueprint_origin('git@github.com:FabienArcellier/spike-starter.git')
+
+    # Assert
+    self.assertEqual('git', blueprint_origin)
+
   def test_blueprint_origin_is_local_when_it_exists_on_local_disk(self):
     with mock.patch('os.path.exists', return_value = True):
       # Acts
