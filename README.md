@@ -23,9 +23,10 @@ necessary to reduce the risk of a technical approach.
 
 ## Features
 
-* blueprint
+* local blueprint
+* remote git blueprint
 
-### Blueprint
+### local blueprint
 
 It allow to use an existing directory as a reference.
 
@@ -33,6 +34,16 @@ It allow to use an existing directory as a reference.
 # Generate a directory based on a template
 spike-starter --template ~/template/java myproject
 spike-starter -t ~/template/java myproject
+```
+
+### remote git blueprint
+
+It can use remote git repository as template. The blueprint is cloned in local
+and a new repository is iniated inside.
+
+```bash
+# Generate a directory based on a template
+spike-starter --template https://github.com/FabienArcellier/blueprint-webapp-flask.git
 ```
 
 ## Advanced usage

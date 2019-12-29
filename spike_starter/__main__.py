@@ -3,11 +3,10 @@
 import getopt
 import logging
 import os
-import shutil
 import sys
-from datetime import datetime
 
-import git
+
+from spike_starter.spike_starter import SpikeStarter
 
 
 def cli():
@@ -44,8 +43,6 @@ def main(argv):
       # Initialize git repository
       spike_starter.create_git_local_repository(project_directory)
 
-
-
   except SystemExit:
     sys.exit(1)
 
@@ -56,47 +53,6 @@ def main(argv):
 
 def usage():
   print("python %s (-h) [-t template_path] projects" % (sys.argv[0]))
-
-
-class SpikeStarter:
-
-  def __init__(self):
-    pass
-
-  def get_project_path(self, project_name):
-    # project id from today date
-    now = datetime.now()
-    project_id = "{0:d}{1:0>2d}{2:0>2d}_{3:0>2d}{4:0>2d}".format(
-      now.year, now.month, now.day, now.hour, now.minute)
-    log_debug("project_id: {}".format(project_id))
-    return "{}__{}".format(project_id, project_name)
-
-  def create_project_directory(self, path):
-    if not os.path.exists(path):
-      os.makedirs(path)
-      log_information("PROJECT DIRECTORY : {} [OK]".format(path))
-    else:
-      log_alert("Project already exits %s" % path)
-      sys.exit(1)
-
-  def create_git_local_repository(self, path):
-    git.Repo.init(path)
-    log_information("PROJECT GIT REPOSITORY : {} [OK]".format(path))
-
-  def import_template_directory(self, destination, source):
-    shutil.copytree(source, destination, ignore=shutil.ignore_patterns('.git'))
-
-
-def log_alert(text):
-  print("[ALERT] {}".format(text))
-
-
-def log_information(text):
-  print("[INFO] ", text)
-
-
-def log_debug(text):
-  print("[DEBUG] ", text)
 
 
 if __name__ == "__main__":

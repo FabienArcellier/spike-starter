@@ -29,11 +29,15 @@ deploy_current_version: ## deploy the current spike-starter version through trav
 	@. venv/bin/activate; python scripts/deploy_current_version.py
 
 .PHONY: tests
-tests: tests_integrations ## run automatic testing on spike-starter
+tests: tests_units tests_integrations ## run automatic testing on spike-starter
 
 .PHONY: tests_integrations
 tests_integrations: ## run only integrations testing on spike-starter
 	@. venv/bin/activate; python -u -m unittest discover ${args} spike_starter_tests/integrations
+
+.PHONY: tests_units
+tests_units: ## run only units testing on spike-starter
+	@. venv/bin/activate; python -u -m unittest discover ${args} spike_starter_tests/units
 
 .PHONY: venv
 venv: ## build virtualenv in ./venv directory and install python dependencies
