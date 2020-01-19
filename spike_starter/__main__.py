@@ -12,14 +12,15 @@ logging.basicConfig(level=logging.INFO)
 
 
 @click.command('spike-starter', help='create a project from a project blueprint')
-@click.option('--template', '-t', help='template path either local or git path')
+@click.option('--template', '-t', default=None, help='template path either local or git path')
 @click.argument('project_names', nargs=-1, required=True)
 def main(template, project_names):
   # pylint: disable=broad-except
   try:
-    # Read project name from command line
-    template_dir = ""
-    template = False
+    template_dir = template
+
+    # pylint: disable=simplifiable-if-expression
+    has_template = False if not template_dir else True
 
     spike_starter = SpikeStarter()
     for project_name in project_names:
@@ -28,7 +29,7 @@ def main(template, project_names):
       project_directory_name = spike_starter.get_project_path(project_name)
       project_directory = os.path.abspath(project_directory_name)
 
-      if template:
+      if has_template:
         spike_starter.import_template_directory(project_directory, template_dir)
       else:
         spike_starter.create_project_directory(project_directory)
