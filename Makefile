@@ -18,14 +18,14 @@ help: ## provides cli help for this make file (default)
 
 .PHONY: install
 install: ## install python dependencies
-	@. venv/bin/activate; pip install -e.[dev]
+	@. venv/bin/activate; pip install --upgrade -e.[dev]
 
 .PHONY: lint
 lint: ## run static analysis on spike-starter
 	@. venv/bin/activate; pylint --rcfile=.pylintrc spike_starter
 
 .PHONY: deploy_current_version
-deploy_current_version: ## deploy the current spike-starter version through travis.ci
+deploy_current_version: install ## deploy the current spike-starter version through travis.ci
 	@. venv/bin/activate; python scripts/deploy_current_version.py
 
 .PHONY: tests
