@@ -112,6 +112,13 @@ tests                          run automatic testing on spike-starter
 venv                           build virtualenv in ./venv directory and install python dependencies
 ```
 
+# Alternative
+
+This tool is a pet project. I encourage you to take a look on other alternative.
+
+* [Cookiecutter](https://cookiecutter.readthedocs.io/) is a more mature alternative to build project from project template. There is
+  a [huge ecosystem of templates](https://cookiecutter.readthedocs.io/en/1.7.0/README.html#a-pantry-full-of-cookiecutters) available on internet
+
 # License
 
 ```
