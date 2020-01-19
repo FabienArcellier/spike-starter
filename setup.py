@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
   name='spike_starter',
-  version='0.1.2',
+  version='0.1.3',
   packages=find_packages(exclude=["spike_starter_tests", "spike_starter_tests.*"]),
   license='MIT',
   long_description=open('README.md').read(),
@@ -18,7 +18,7 @@ setup(
   ],
   entry_points={
     'console_scripts': [
-      'spike-starter = spike_starter.__main__:cli',
+      'spike-starter = spike_starter.__main__:main',
     ],
   },
   install_requires=[

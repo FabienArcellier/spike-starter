@@ -1,37 +1,28 @@
 #!/usr/bin/python
 
-import getopt
 import logging
 import os
 import sys
 
-from spike_starter.spike_starter import SpikeStarter
+import click
 
+from spike_starter.spike_starter import SpikeStarter
 
 logging.basicConfig(level=logging.INFO)
 
 
-def cli():
-  main(sys.argv[1:])
-
-
-def main(argv):
+@click.command('spike-starter', help='create a project from a project blueprint')
+@click.option('--template', '-t', help='template path either local or git path')
+@click.argument('project_names', nargs=-1, required=True)
+def main(template, project_names):
   # pylint: disable=broad-except
   try:
     # Read project name from command line
     template_dir = ""
     template = False
-    opts, args = getopt.getopt(argv, "ht:", ["help", "template="])
-    for opt, arg in opts:
-      if opt in ("-h", "--help"):
-        usage()
-        sys.exit()
-      elif opt in ("-t", "--template"):
-        template = True
-        template_dir = arg
 
     spike_starter = SpikeStarter()
-    for project_name in args:
+    for project_name in project_names:
 
       # Create project directory
       project_directory_name = spike_starter.get_project_path(project_name)
@@ -53,9 +44,6 @@ def main(argv):
     sys.exit(1)
 
 
-def usage():
-  print("python %s (-h) [-t template_path] projects" % (sys.argv[0]))
-
-
-if __name__ == "__main__":
-  main(sys.argv[1:])
+if __name__ == '__main__':
+  # pylint: disable=no-value-for-parameter
+  main()
