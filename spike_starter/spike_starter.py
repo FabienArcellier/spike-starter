@@ -12,6 +12,7 @@ class SpikeStarter:
 
   def __init__(self):
     self.logger = logging.getLogger('spike-starter')
+    self.logger.debug('test')
 
   def get_project_path(self, project_name):
     # project id from today date
@@ -24,8 +25,7 @@ class SpikeStarter:
   def create_project_directory(self, path):
     if not os.path.exists(path):
       os.makedirs(path)
-      self.logger.info("The spike project is ready.")
-      self.logger.info("DIRECTORY :%s [OK]", path)
+      self.logger.debug({"operation": "create_project_directory", "path": path, "status": "OK"})
     else:
       self.logger.info("Project already exits %s", path)
       raise OSError()
@@ -38,8 +38,12 @@ class SpikeStarter:
   def import_template_directory(self, destination: str, source: str) -> None:
     blueprint_origin = self._blueprint_origin(source)
 
-    self.logger.debug('import_template_directory - blueprint_origin:%s source:%s destination:%s'
-                      , blueprint_origin, source, destination)
+    self.logger.debug({
+      "operation": "import_template_directory",
+      "blueprint_origin": blueprint_origin,
+      "source": source,
+      "destination": destination
+    })
 
     if blueprint_origin == 'local':
       shutil.copytree(source, destination, ignore=shutil.ignore_patterns('.git'))
@@ -50,7 +54,7 @@ class SpikeStarter:
       shutil.copytree(clone_destination, destination, ignore=shutil.ignore_patterns('.git'))
       shutil.rmtree(clone_destination)
 
-    self.logger.debug('import_template_directory - done')
+    self.logger.debug({"operation": "import_template_directory", "status": "OK"})
 
   def _blueprint_origin(self, source: str) -> [str]:
     blueprint_origin = None

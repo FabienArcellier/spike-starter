@@ -5,17 +5,32 @@ import os
 import sys
 
 import click
+import pkg_resources
+from click import Command
 
 from spike_starter.spike_starter import SpikeStarter
-
-logging.basicConfig(level=logging.INFO)
 
 
 @click.command('spike-starter', help='create a project from a project blueprint')
 @click.option('--template', '-t', default=None, help='template path either local or git path')
-@click.argument('project_names', nargs=-1, required=True)
-def main(template, project_names):
+@click.option('--debug', '-d', is_flag=True, help='show debug information')
+@click.option('--version', '-v', is_flag=True, help='show version number')
+@click.argument('project_names', nargs=-1)
+def main(template, debug, version, project_names):
   # pylint: disable=broad-except
+  configure_logging(debug)
+
+  if version:
+    # pylint: disable=line-too-long
+    package_info = pkg_resources.require('spike_starter')[0]  # type:pkg_resources.EggInfoDistribution
+    package_version = package_info.version
+    print(package_version)
+    sys.exit(0)
+
+  if len(project_names) == 0:
+    print_help_msg(main)
+    sys.exit(2)
+
   try:
     template_dir = template
 
@@ -25,7 +40,6 @@ def main(template, project_names):
     spike_starter = SpikeStarter()
     for project_name in project_names:
 
-      # Create project directory
       project_directory_name = spike_starter.get_project_path(project_name)
       project_directory = os.path.abspath(project_directory_name)
 
@@ -34,7 +48,6 @@ def main(template, project_names):
       else:
         spike_starter.create_project_directory(project_directory)
 
-      # Initialize git repository
       spike_starter.create_git_local_repository(project_directory)
 
   except SystemExit:
@@ -44,6 +57,16 @@ def main(template, project_names):
     logging.exception("Unexpected error:")
     sys.exit(1)
 
+
+def configure_logging(debug):
+  if debug:
+    logging.basicConfig(level=logging.DEBUG)
+  else:
+    logging.basicConfig(level=logging.INFO)
+
+def print_help_msg(command: Command):
+  with click.Context(command, info_name=command.name) as ctx:
+    click.echo(command.get_help(ctx))
 
 if __name__ == '__main__':
   # pylint: disable=no-value-for-parameter
