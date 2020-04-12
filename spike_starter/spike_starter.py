@@ -34,6 +34,18 @@ class SpikeStarter:
       self.logger.info("Project already exits %s", path)
       raise OSError()
 
+  def is_in_git_repository(self, path: str) -> bool:
+    is_in_git = False
+    head, tail = os.path.split(path)
+    while tail != '':
+      if os.path.isdir(os.path.join(head, '.git')):
+        is_in_git = True
+        break
+
+      head, tail = os.path.split(head)
+
+    return is_in_git
+
   def create_git_local_repository(self, path):
     git.Repo.init(path)
     self.logger.info("The spike project is ready.")

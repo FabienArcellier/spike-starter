@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# pylint: disable=too-many-arguments
 
 import logging
 import os
@@ -16,8 +17,9 @@ from spike_starter.spike_starter import SpikeStarter
 @click.option('--debug', '-d', is_flag=True, help='show debug information')
 @click.option('--version', '-v', is_flag=True, help='show version number')
 @click.option('--noprefix', is_flag=True, help='instanciate a blueprint without date time prefix')
+@click.option('--gitinit', '-g', is_flag=True, help='force initialization of git repository')
 @click.argument('project_names', nargs=-1)
-def main(template: str, debug: bool, version: bool, noprefix: bool, project_names: [str]):
+def main(template: str, debug: bool, version: bool, noprefix: bool, gitinit: bool, project_names: [str]):
   # pylint: disable=broad-except
   configure_logging(debug)
 
@@ -49,7 +51,8 @@ def main(template: str, debug: bool, version: bool, noprefix: bool, project_name
       else:
         spike_starter.create_project_directory(project_directory)
 
-      spike_starter.create_git_local_repository(project_directory)
+      if not spike_starter.is_in_git_repository(project_directory) or gitinit:
+        spike_starter.create_git_local_repository(project_directory)
 
   except SystemExit:
     sys.exit(1)

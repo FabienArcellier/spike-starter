@@ -1,6 +1,7 @@
 import os
 import unittest
 from unittest import mock
+from unittest.mock import patch
 
 from spike_starter.__main__ import SpikeStarter
 
@@ -62,4 +63,21 @@ class TestSpikeStarter(unittest.TestCase):
     # Assert
     project_directory = os.path.basename(project_path)
     self.assertEqual('myproject', project_directory)
-    
+  
+  def test_is_in_git_repository_should_detect_if_the_spike_is_in_git_repository(self):
+    with patch('os.path.isdir', side_effect=_side_effect_in_git_repository) as m:
+      # Assign
+      path = '/bla/bla/bla/bla/my_repository'
+
+      # Acts
+      is_in_git_repository = self._tested.is_in_git_repository(path)
+
+      # Assert
+      self.assertTrue(is_in_git_repository)
+
+
+def _side_effect_in_git_repository(*args):
+  if args[0] == '/bla/.git':
+    return True
+  else:
+    return False

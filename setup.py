@@ -24,6 +24,7 @@ setup(
   },
   install_requires=[
     'click',
+    'decorator',
     'GitPython'
   ],
   extras_require={
