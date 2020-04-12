@@ -4,7 +4,8 @@ from setuptools import setup, find_packages
 
 setup(
   name='spike_starter',
-  version='0.1.4',
+  version='0.1.5',
+  description="spike-starter creates project from blueprint template",
   packages=find_packages(exclude=["spike_starter_tests", "spike_starter_tests.*"]),
   license='MIT',
   long_description=open('README.md').read(),

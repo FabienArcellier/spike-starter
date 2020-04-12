@@ -10,7 +10,7 @@ from spike_starter_tests.fixtures import clone_template
 
 class TestSpikeStarter(unittest.TestCase):
   def setUp(self):
-    self._tested = SpikeStarter()
+    self._tested = SpikeStarter(noprefix=False)
 
   def test_importTemplateDirectory_should_copy_the_source_directory_into_destination(self):
     source = clone_template('template_project')

@@ -2,7 +2,8 @@
 
 [![Build Status](https://travis-ci.org/FabienArcellier/spike-starter.svg?branch=master)](https://travis-ci.org/FabienArcellier/spike-starter)
 
-Spike-starter is a tool that helps me on my experimentation workflow.
+spike-starter creates project from blueprint template
+and helps me on my experimentation workflow.
 
 ```bash
 # Simple usage
@@ -45,6 +46,10 @@ and a new repository is iniated inside.
 # Generate a directory based on a template
 spike-starter --template https://github.com/FabienArcellier/blueprint-webapp-flask.git myproject
 ```
+
+## Blueprints
+
+* [FabienArcellier/blueprint-webapp-bootstrap](https://github.com/FabienArcellier/blueprint-webapp-bootstrap) : `spike-starter --template https://github.com/FabienArcellier/blueprint-webapp-bootstrap.git myproject`
 
 ## Advanced usage
 

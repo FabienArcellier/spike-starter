@@ -10,17 +10,21 @@ import git
 
 class SpikeStarter:
 
-  def __init__(self):
+  def __init__(self, noprefix: bool):
     self.logger = logging.getLogger('spike-starter')
     self.logger.debug('test')
+    self._no_prefix = noprefix
 
-  def get_project_path(self, project_name):
-    # project id from today date
-    now = datetime.now()
-    project_id = "{0:d}{1:0>2d}{2:0>2d}_{3:0>2d}{4:0>2d}".format(
-      now.year, now.month, now.day, now.hour, now.minute)
-    self.logger.debug("project_id:%s", project_id)
-    return "{}__{}".format(project_id, project_name)
+  def get_project_path(self, project_name: str)->str:
+    project_path = None
+    if self._no_prefix:
+      project_path = os.path.abspath(project_name)
+    else:
+      now = datetime.now()
+      project_id = f"{now.year:d}{now.month:0>2d}{now.day:0>2d}_{now.hour:0>2d}{now.minute:0>2d}"
+      project_path = os.path.abspath(f"{project_id}__{project_name}")
+    self.logger.debug("project_path:%s", project_path)
+    return project_path
 
   def create_project_directory(self, path):
     if not os.path.exists(path):

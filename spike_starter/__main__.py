@@ -15,8 +15,9 @@ from spike_starter.spike_starter import SpikeStarter
 @click.option('--template', '-t', default=None, help='template path either local or git path')
 @click.option('--debug', '-d', is_flag=True, help='show debug information')
 @click.option('--version', '-v', is_flag=True, help='show version number')
+@click.option('--noprefix', is_flag=True, help='remove prefix with date and time')
 @click.argument('project_names', nargs=-1)
-def main(template, debug, version, project_names):
+def main(template: str, debug: bool, version: bool, noprefix: bool, project_names: [str]):
   # pylint: disable=broad-except
   configure_logging(debug)
 
@@ -37,7 +38,7 @@ def main(template, debug, version, project_names):
     # pylint: disable=simplifiable-if-expression
     has_template = False if not template_dir else True
 
-    spike_starter = SpikeStarter()
+    spike_starter = SpikeStarter(noprefix)
     for project_name in project_names:
 
       project_directory_name = spike_starter.get_project_path(project_name)

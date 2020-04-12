@@ -1,3 +1,4 @@
+import os
 import unittest
 from unittest import mock
 
@@ -7,7 +8,7 @@ from spike_starter.__main__ import SpikeStarter
 class TestSpikeStarter(unittest.TestCase):
 
   def setUp(self) -> None:
-    self._tested = SpikeStarter()
+    self._tested = SpikeStarter(noprefix=False)
 
 
   def test_blueprint_origin_is_git_when_it_s_end_with_dot_git_and_support_https(self):
@@ -39,3 +40,26 @@ class TestSpikeStarter(unittest.TestCase):
 
       # Assert
       self.assertEqual(None, blueprint_origin)
+
+  def test_get_project_path_does_append_date_by_default(self):
+    # Assign
+
+    # Acts
+    project_path = self._tested.get_project_path('myproject')
+
+    # Assert
+    project_directory = os.path.basename(project_path)
+    self.assertTrue(project_directory.endswith('_myproject'), f'wrong project directory {project_directory}')
+    
+  
+  def test_get_project_path_does_not_append_date_when_no_prefix(self):
+    # Assign
+    tested = SpikeStarter(noprefix=True)
+
+    # Acts
+    project_path = tested.get_project_path('myproject')
+
+    # Assert
+    project_directory = os.path.basename(project_path)
+    self.assertEqual('myproject', project_directory)
+    
