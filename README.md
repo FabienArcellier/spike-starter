@@ -18,14 +18,30 @@ to allow quick classification of experiments.
 
 * the `Spike directory` is initialized as git repository
 
-Spikes are invention from [Kent Beck](https://fr.wikipedia.org/wiki/Kent_Beck) in Extreme Programming (XP).
+The term Spikes has been coined by [Kent Beck](https://fr.wikipedia.org/wiki/Kent_Beck) in Extreme Programming (XP).
 It's a special type of story that is used to gain the knowledge
 necessary to reduce the risk of a technical approach.
 
 ## Features
 
+* usage
 * local blueprint
 * remote git blueprint
+
+### usage
+
+```bash
+Usage: spike-starter [OPTIONS] [PROJECT_NAMES]...
+
+  instanciate a project based on a project blueprint
+
+Options:
+  -t, --template TEXT  template path either local or git path
+  -d, --debug          show debug information
+  -v, --version        show version number
+  --noprefix           instanciate a blueprint without date time prefix
+  --help               Show this message and exit.
+```
 
 ### local blueprint
 
@@ -49,7 +65,10 @@ spike-starter --template https://github.com/FabienArcellier/blueprint-webapp-fla
 
 ## Blueprints
 
+* [FabienArcellier/blueprint-cli-multicommands-python](https://github.com/FabienArcellier/blueprint-cli-multicommands-python) : `spike-starter --template https://github.com/FabienArcellier/blueprint-cli-multicommands-python.git myproject`
 * [FabienArcellier/blueprint-webapp-bootstrap](https://github.com/FabienArcellier/blueprint-webapp-bootstrap) : `spike-starter --template https://github.com/FabienArcellier/blueprint-webapp-bootstrap.git myproject`
+* [FabienArcellier/blueprint-webapp-flask](https://github.com/FabienArcellier/blueprint-webapp-flask) : `spike-starter --template https://github.com/FabienArcellier/blueprint-webapp-flask.git myproject`
+
 
 ## Advanced usage
 
@@ -59,7 +78,7 @@ An [alias](https://ss64.com/bash/alias.html) may be use to generate
 a spike based on a specific blueprint already on your computer.
 
 ```bash
-alias spike-starter-python='spike-starter -t ~/projects/0004-spikes_template/python_spike'
+alias spike-starter-blueprint-cli-multicommands-python='spike-starter -t https://github.com/FabienArcellier/blueprint-cli-multicommands-python'
 alias spike-starter-python3='spike-starter -t ~/projects/0004-spikes_template/python3_spike'
 ```
 

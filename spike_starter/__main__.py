@@ -11,11 +11,11 @@ from click import Command
 from spike_starter.spike_starter import SpikeStarter
 
 
-@click.command('spike-starter', help='create a project from a project blueprint')
+@click.command('spike-starter', help='instanciate a project based on a project blueprint')
 @click.option('--template', '-t', default=None, help='template path either local or git path')
 @click.option('--debug', '-d', is_flag=True, help='show debug information')
 @click.option('--version', '-v', is_flag=True, help='show version number')
-@click.option('--noprefix', is_flag=True, help='remove prefix with date and time')
+@click.option('--noprefix', is_flag=True, help='instanciate a blueprint without date time prefix')
 @click.argument('project_names', nargs=-1)
 def main(template: str, debug: bool, version: bool, noprefix: bool, project_names: [str]):
   # pylint: disable=broad-except
