@@ -68,6 +68,7 @@ spike-starter --template https://github.com/FabienArcellier/blueprint-webapp-fla
 * [FabienArcellier/blueprint-cli-multicommands-python](https://github.com/FabienArcellier/blueprint-cli-multicommands-python) : `spike-starter --template https://github.com/FabienArcellier/blueprint-cli-multicommands-python.git myproject`
 * [FabienArcellier/blueprint-webapp-bootstrap](https://github.com/FabienArcellier/blueprint-webapp-bootstrap) : `spike-starter --template https://github.com/FabienArcellier/blueprint-webapp-bootstrap.git myproject`
 * [FabienArcellier/blueprint-webapp-flask](https://github.com/FabienArcellier/blueprint-webapp-flask) : `spike-starter --template https://github.com/FabienArcellier/blueprint-webapp-flask.git myproject`
+* [FabienArcellier/blueprint-library-pip](https://github.com/FabienArcellier/blueprint-library-pip) : `spike-starter --template https://github.com/FabienArcellier/blueprint-library-pip myproject`
 
 
 ## Advanced usage

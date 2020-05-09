@@ -49,7 +49,7 @@ class SpikeStarter:
   def create_git_local_repository(self, path):
     git.Repo.init(path)
     self.logger.info("The spike project is ready.")
-    self.logger.info("DIRECTORY :%s [OK]", path)
+    self.logger.info("DIRECTORY: %s [OK]", path)
 
   def import_template_directory(self, destination: str, source: str) -> None:
     blueprint_origin = self._blueprint_origin(source)
