@@ -9,7 +9,7 @@ cd: _deploy_pypi ## run continuous deployment process on spike-starter
 .PHONY: dist
 dist: ## build distribution archives
 	poetry build
-	poetry run python -u -m unittest discover ${args} tests/continuous_integration
+	poetry run python -u -m unittest discover ${args} tests/check
 
 .PHONY: help
 help: ## provides cli help for this make file (default)
