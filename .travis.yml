@@ -1,11 +1,10 @@
 language: python
-
-cache:
-  directories:
-   - venv
+python:
+  - "3.12"
 
 install:
-  - make venv
+  - pip install poetry
+  - poetry install
 
 script:
   - make ci

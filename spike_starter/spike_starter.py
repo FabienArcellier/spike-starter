@@ -2,7 +2,6 @@ import logging
 import os
 import shutil
 import tempfile
-
 from datetime import datetime
 
 import git
@@ -52,6 +51,13 @@ class SpikeStarter:
     self.logger.info("DIRECTORY: %s [OK]", path)
 
   def import_template_directory(self, destination: str, source: str) -> None:
+    """
+
+    :param destination:
+    :param source:
+    :param ignore_paths: ignore the list of paths given in param
+    :return:
+    """
     blueprint_origin = self._blueprint_origin(source)
 
     self.logger.debug({
@@ -62,17 +68,17 @@ class SpikeStarter:
     })
 
     if blueprint_origin == 'local':
-      shutil.copytree(source, destination, ignore=shutil.ignore_patterns('.git'))
+      _copytree(source, destination)
 
     if blueprint_origin == 'git':
       clone_destination = tempfile.mktemp(prefix='spike_starter_')
       git.Repo.clone_from(source, clone_destination, multi_options=['--depth=1'])
-      shutil.copytree(clone_destination, destination, ignore=shutil.ignore_patterns('.git'))
+      _copytree(clone_destination, destination)
       shutil.rmtree(clone_destination)
 
     self.logger.debug({"operation": "import_template_directory", "status": "OK"})
 
-  def _blueprint_origin(self, source: str) -> [str]:
+  def _blueprint_origin(self, source: str) -> str:
     blueprint_origin = None
     if source.endswith('.git') and source.startswith('https://'):
       blueprint_origin = 'git'
@@ -84,3 +90,18 @@ class SpikeStarter:
       blueprint_origin = 'local'
 
     return blueprint_origin
+
+
+def _copytree(src: str, dst: str):
+  if os.path.isfile(os.path.join(src, '.spikeignore')):
+    with open(os.path.join(src, '.spikeignore')) as f:
+      ignore_paths = [line.strip() for line in f.readlines()]
+  else:
+    ignore_paths = ['.git']
+
+  if len(ignore_paths) == 0:
+    ignore = None
+  else:
+    ignore = shutil.ignore_patterns(*ignore_paths)
+
+  shutil.copytree(src, dst, ignore=ignore)

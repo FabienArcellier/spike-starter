@@ -1,6 +1,7 @@
 import unittest
 
 from click.testing import CliRunner
+
 from spike_starter.__main__ import main
 
 
@@ -15,4 +16,5 @@ class Test__main__(unittest.TestCase):
 
     # Assert
     self.assertEqual(result.exit_code, 2)
-    self.assertTrue('Usage: spike-starter' in result.output,'{} not in {}'.format('Usage: spike-starter', result.output))
+    self.assertTrue('Usage: spike-starter' in result.output,
+                    '{} not in {}'.format('Usage: spike-starter', result.output))

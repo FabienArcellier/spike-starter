@@ -1,0 +1,43 @@
+[tool.poetry]
+name = "spike-starter"
+version = "0.1.7"
+description = "spike-starter creates project from blueprint template"
+readme = "README.md"
+license = "MIT"
+authors = ["Spike Starter Contributors"]
+classifiers = [
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: System Administrators",
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+]
+
+packages = [
+    { include = "spike_starter" },
+]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+click = "*"
+decorator = "*"
+GitPython = "*"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "*"
+tox = "*"
+twine = "*"
+
+[tool.poetry.scripts]
+spike-starter = "spike_starter.__main__:main"
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP"]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

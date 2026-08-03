@@ -21,7 +21,8 @@ class TestSpikeStarter(unittest.TestCase):
 
   def test_blueprint_origin_is_git_when_it_s_end_with_dot_git_and_support_ssh(self):
     # Acts
-    blueprint_origin = self._tested._blueprint_origin('git@github.com:FabienArcellier/spike-starter.git')
+    blueprint_origin = self._tested._blueprint_origin(
+      'git@github.com:FabienArcellier/spike-starter.git')
 
     # Assert
     self.assertEqual('git', blueprint_origin)
@@ -50,9 +51,10 @@ class TestSpikeStarter(unittest.TestCase):
 
     # Assert
     project_directory = os.path.basename(project_path)
-    self.assertTrue(project_directory.endswith('_myproject'), f'wrong project directory {project_directory}')
-    
-  
+    self.assertTrue(project_directory.endswith('_myproject'),
+                    f'wrong project directory {project_directory}')
+
+
   def test_get_project_path_does_not_append_date_when_no_prefix(self):
     # Assign
     tested = SpikeStarter(noprefix=True)
@@ -63,9 +65,9 @@ class TestSpikeStarter(unittest.TestCase):
     # Assert
     project_directory = os.path.basename(project_path)
     self.assertEqual('myproject', project_directory)
-  
+
   def test_is_in_git_repository_should_detect_if_the_spike_is_in_git_repository(self):
-    with patch('os.path.isdir', side_effect=_side_effect_in_git_repository) as m:
+    with patch('os.path.isdir', side_effect=_side_effect_in_git_repository):
       # Assign
       path = '/bla/bla/bla/bla/my_repository'
 

@@ -1,12 +1,12 @@
 #!/usr/bin/python
-# pylint: disable=too-many-arguments
 
 import logging
 import os
 import sys
+from importlib.metadata import PackageNotFoundError
+from importlib.metadata import version as _pkg_version
 
 import click
-import pkg_resources
 from click import Command
 
 from spike_starter.spike_starter import SpikeStarter
@@ -19,14 +19,16 @@ from spike_starter.spike_starter import SpikeStarter
 @click.option('--noprefix', is_flag=True, help='instanciate a blueprint without date time prefix')
 @click.option('--gitinit', '-g', is_flag=True, help='force initialization of git repository')
 @click.argument('project_names', nargs=-1)
-def main(template: str, debug: bool, version: bool, noprefix: bool, gitinit: bool, project_names: [str]):
-  # pylint: disable=broad-except
+def main(template: str, debug: bool, version: bool,
+         noprefix: bool, gitinit: bool, project_names: [str]):
+
   configure_logging(debug)
 
   if version:
-    # pylint: disable=line-too-long
-    package_info = pkg_resources.require('spike_starter')[0]  # type:pkg_resources.EggInfoDistribution
-    package_version = package_info.version
+    try:
+      package_version = _pkg_version('spike-starter')
+    except PackageNotFoundError:
+      package_version = 'unknown'
     print(package_version)
     sys.exit(0)
 
@@ -37,7 +39,7 @@ def main(template: str, debug: bool, version: bool, noprefix: bool, gitinit: boo
   try:
     template_dir = template
 
-    # pylint: disable=simplifiable-if-expression
+
     has_template = False if not template_dir else True
 
     spike_starter = SpikeStarter(noprefix)
@@ -73,5 +75,5 @@ def print_help_msg(command: Command):
     click.echo(command.get_help(ctx))
 
 if __name__ == '__main__':
-  # pylint: disable=no-value-for-parameter
+
   main()

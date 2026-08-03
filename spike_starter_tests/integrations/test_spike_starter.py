@@ -22,9 +22,10 @@ class TestSpikeStarter(unittest.TestCase):
 
         # Assert
         expected_path = os.path.join(destination, 'file.txt')
-        self.assertEqual(True, os.path.exists(expected_path), '{0} should a clone'.format(expected_path))
+        self.assertEqual(True, os.path.exists(expected_path), f'{expected_path} should a clone')
       finally:
-        if os.path.isdir(destination) : shutil.rmtree(destination)
+        if os.path.isdir(destination):
+          shutil.rmtree(destination)
 
   def test_importTemplateDirectory_should_not_copy_git_subdirectory_from_the_source(self):
     with clone_fixture('template_project') as source:
@@ -38,12 +39,15 @@ class TestSpikeStarter(unittest.TestCase):
 
         # Assert
         expected_path = os.path.join(destination, '.git')
-        self.assertEqual(False, os.path.exists(expected_path), '{0} should not be cloned'.format(expected_path))
+        self.assertEqual(False, os.path.exists(expected_path),
+                         f'{expected_path} should not be cloned')
 
         expected_path = os.path.join(destination, 'subdir1/.git')
-        self.assertEqual(False, os.path.exists(expected_path), '{0} should not be cloned'.format(expected_path))
+        self.assertEqual(False, os.path.exists(expected_path),
+                         f'{expected_path} should not be cloned')
       finally:
-        if os.path.isdir(destination) : shutil.rmtree(destination)
+        if os.path.isdir(destination):
+          shutil.rmtree(destination)
 
   def test_import_template_directory_should_clone_git_remote_repository_by_https(self):
     # Assign
@@ -56,10 +60,13 @@ class TestSpikeStarter(unittest.TestCase):
 
       # Assert
       expected_file = os.path.join(destination, 'setup.py')
-      self.assertTrue(os.path.exists(expected_file), 'clone operation from {} does not clone {}'.format(source, expected_file))
+      self.assertTrue(
+        os.path.exists(expected_file),
+        f'clone operation from {source} does not clone {expected_file}')
 
       expected_path = os.path.join(destination, '.git')
-      self.assertEqual(False, os.path.exists(expected_path), '{0} should not be cloned'.format(expected_path))
+      self.assertEqual(False, os.path.exists(expected_path),
+                       f'{expected_path} should not be cloned')
 
     finally:
       shutil.rmtree(destination)
@@ -77,10 +84,13 @@ class TestSpikeStarter(unittest.TestCase):
 
       # Assert
       expected_file = os.path.join(destination, 'setup.py')
-      self.assertTrue(os.path.exists(expected_file), 'clone operation from {} does not clone {}'.format(source, expected_file))
+      self.assertTrue(
+        os.path.exists(expected_file),
+        f'clone operation from {source} does not clone {expected_file}')
 
       expected_path = os.path.join(destination, '.git')
-      self.assertEqual(False, os.path.exists(expected_path), '{0} should not be cloned'.format(expected_path))
+      self.assertEqual(False, os.path.exists(expected_path),
+                       f'{expected_path} should not be cloned')
 
     finally:
       shutil.rmtree(destination)

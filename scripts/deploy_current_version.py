@@ -3,8 +3,8 @@
 import logging
 import os
 import sys
+from importlib.metadata import version
 
-import pkg_resources
 from git import Repo
 
 SCRIPT_DIR = os.path.realpath(os.path.join(__file__, '..'))
@@ -17,23 +17,21 @@ logger = logging.getLogger('tag')
 def main(arguments):
   os.chdir(ROOT_DIR)
 
-  package_info = pkg_resources.require('spike_starter')[0]  # type:pkg_resources.EggInfoDistribution
-  package_version = package_info.version
-  target_tag = 'v{}'.format(package_version)
+  target_tag = 'v{}'.format(version('spike-starter'))
 
   repo = Repo(ROOT_DIR)
   if target_tag in repo.tags:
-    raise OSError('the version {} has already been deployed'.format(target_tag))
+    raise OSError(f'the version {target_tag} has already been deployed')
 
-  _system('git tag -a {} -m ""'.format(target_tag))
-  _system('git push origin {}'.format(target_tag))
+  _system(f'git tag -a {target_tag} -m ""')
+  _system(f'git push origin {target_tag}')
 
 
 # BOILERPLATE TO REPRODUCE -ex behavior of bash
 
 def _system(cmd, logged=True):
   if logged:
-    print('$ {0}'.format(cmd))
+    print(f'$ {cmd}')
 
   output = os.system(cmd)
 
