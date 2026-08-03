@@ -26,6 +26,8 @@ jobs:
         run: poetry install
 
       - name: Continuous deployment
-        run: poetry run alfred cd
+        run: |
+          poetry config pypi-token.pypi $POETRY_PYPI_TOKEN_PYPI
+          poetry run alfred cd
         env:
           POETRY_PYPI_TOKEN_PYPI: ${{ secrets.PYPI_API_TOKEN }}

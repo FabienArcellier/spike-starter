@@ -16,7 +16,8 @@ def dist():
 
 
 @alfred.command(
-    "deploy_current_version", help="deploy the current spike-starter version through travis.ci"
+    "deploy_current_version",
+    help="tag and push the current spike-starter version to trigger deployment",
 )
 def deploy_current_version():
     alfred.invoke_command("install")

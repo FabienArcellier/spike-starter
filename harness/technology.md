@@ -13,7 +13,7 @@ order: 1
 - **Linting + formatting**: Ruff (select `E,F,W,I,UP`, `line-length = 100`, `target-version = py312`)
 - **Testing**: unittest (standard library), no pytest
 - **Distribution**: Poetry build; `twine` for publishing
-- **CI/CD**: Travis CI (`.travis.yml`)
+- **CI/CD**: GitHub Actions (`.github/workflows/ci.yml` + `cd.yml`)
 - **Task runner**: alfred-cli (`alfred ci`, `alfred cd`, ...)
 
 ## Commands
@@ -27,7 +27,7 @@ poetry build                      # build dist archives (alfred dist)
 poetry publish                    # publish to PyPI (alfred cd)
 ```
 
-Alfred commands: `alfred ci` (lint + format + tests + dist), `alfred cd` (deploy), `alfred ci.tests` (units + integrations), `alfred install`, `alfred deploy_current_version`. The `--fix` flag applies ruff fixes/formatting.
+Alfred commands: `alfred ci` (lint + format + tests + dist), `alfred cd` (deploy), `alfred ci.tests` (units + integrations), `alfred install`, `alfred deploy_current_version` (creates and pushes the `v*` tag). The `--fix` flag applies ruff fixes/formatting.
 
 ## Runtime deps (`[tool.poetry.dependencies]`)
 

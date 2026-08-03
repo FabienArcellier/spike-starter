@@ -22,7 +22,7 @@ order: 2
 ├── pyproject.toml       # Poetry config + ruff config + alfred-cli dev dep
 ├── .alfred.toml         # alfred-cli project manifest (task runner)
 ├── alfred/              # alfred-cli task runner commands (ci.py, release.py)
-└── .travis.yml          # CI/CD pipeline (runs `alfred ci` / `alfred cd`)
+└── .github/workflows/   # CI/CD pipeline (ci.yml runs `alfred ci`, cd.yml runs `alfred cd`)
 ```
 
 ## Key locations
