@@ -28,4 +28,4 @@ jobs:
         run: poetry install
 
       - name: Run continuous integration
-        run: make ci
+        run: poetry run alfred ci
