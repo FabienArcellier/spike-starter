@@ -1,0 +1,17 @@
+language: python
+python:
+  - "3.12"
+
+install:
+  - pip install poetry
+  - poetry install
+
+script:
+  - alfred ci
+
+deploy:
+  provider: script
+  script: alfred cd
+  skip_cleanup: true
+  on:
+    tags: true

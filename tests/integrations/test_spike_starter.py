@@ -9,88 +9,98 @@ from tests.fixtures import clone_fixture
 
 
 class TestSpikeStarter(unittest.TestCase):
-  def setUp(self):
-    self._tested = SpikeStarter(noprefix=False)
+    def setUp(self):
+        self._tested = SpikeStarter(noprefix=False)
 
-  def test_importTemplateDirectory_should_copy_the_source_directory_into_destination(self):
-    with clone_fixture('template_project') as source:
-      destination = tempfile.mktemp(prefix='fixtures_')
+    def test_importTemplateDirectory_should_copy_the_source_directory_into_destination(self):
+        with clone_fixture("template_project") as source:
+            destination = tempfile.mktemp(prefix="fixtures_")
 
-      try:
-        # Acts
-        self._tested.import_template_directory(destination, source)
+            try:
+                # Acts
+                self._tested.import_template_directory(destination, source)
 
-        # Assert
-        expected_path = os.path.join(destination, 'file.txt')
-        self.assertEqual(True, os.path.exists(expected_path), f'{expected_path} should a clone')
-      finally:
-        if os.path.isdir(destination):
-          shutil.rmtree(destination)
+                # Assert
+                expected_path = os.path.join(destination, "file.txt")
+                self.assertEqual(
+                    True, os.path.exists(expected_path), f"{expected_path} should a clone"
+                )
+            finally:
+                if os.path.isdir(destination):
+                    shutil.rmtree(destination)
 
-  def test_importTemplateDirectory_should_not_copy_git_subdirectory_from_the_source(self):
-    with clone_fixture('template_project') as source:
-      destination = tempfile.mktemp(prefix='fixtures_')
-      os.makedirs(os.path.join(source, '.git'))
-      os.makedirs(os.path.join(source, 'subidr1/.git'))
+    def test_importTemplateDirectory_should_not_copy_git_subdirectory_from_the_source(self):
+        with clone_fixture("template_project") as source:
+            destination = tempfile.mktemp(prefix="fixtures_")
+            os.makedirs(os.path.join(source, ".git"))
+            os.makedirs(os.path.join(source, "subidr1/.git"))
 
-      try:
-        # Acts
-        self._tested.import_template_directory(destination, source)
+            try:
+                # Acts
+                self._tested.import_template_directory(destination, source)
 
-        # Assert
-        expected_path = os.path.join(destination, '.git')
-        self.assertEqual(False, os.path.exists(expected_path),
-                         f'{expected_path} should not be cloned')
+                # Assert
+                expected_path = os.path.join(destination, ".git")
+                self.assertEqual(
+                    False, os.path.exists(expected_path), f"{expected_path} should not be cloned"
+                )
 
-        expected_path = os.path.join(destination, 'subdir1/.git')
-        self.assertEqual(False, os.path.exists(expected_path),
-                         f'{expected_path} should not be cloned')
-      finally:
-        if os.path.isdir(destination):
-          shutil.rmtree(destination)
+                expected_path = os.path.join(destination, "subdir1/.git")
+                self.assertEqual(
+                    False, os.path.exists(expected_path), f"{expected_path} should not be cloned"
+                )
+            finally:
+                if os.path.isdir(destination):
+                    shutil.rmtree(destination)
 
-  def test_import_template_directory_should_clone_git_remote_repository_by_https(self):
-    # Assign
-    source = 'https://github.com/FabienArcellier/spike-starter.git'
-    destination = tempfile.mktemp(prefix='spike_starter_integrations_')
+    def test_import_template_directory_should_clone_git_remote_repository_by_https(self):
+        # Assign
+        source = "https://github.com/FabienArcellier/spike-starter.git"
+        destination = tempfile.mktemp(prefix="spike_starter_integrations_")
 
-    try:
-      # Acts
-      self._tested.import_template_directory(destination, source)
+        try:
+            # Acts
+            self._tested.import_template_directory(destination, source)
 
-      # Assert
-      expected_file = os.path.join(destination, 'setup.py')
-      self.assertTrue(
-        os.path.exists(expected_file),
-        f'clone operation from {source} does not clone {expected_file}')
+            # Assert
+            expected_file = os.path.join(destination, "setup.py")
+            self.assertTrue(
+                os.path.exists(expected_file),
+                f"clone operation from {source} does not clone {expected_file}",
+            )
 
-      expected_path = os.path.join(destination, '.git')
-      self.assertEqual(False, os.path.exists(expected_path),
-                       f'{expected_path} should not be cloned')
+            expected_path = os.path.join(destination, ".git")
+            self.assertEqual(
+                False, os.path.exists(expected_path), f"{expected_path} should not be cloned"
+            )
 
-    finally:
-      shutil.rmtree(destination)
+        finally:
+            shutil.rmtree(destination)
 
-  def test_import_template_directory_should_clone_git_remote_repository_by_ssh(self):
-    self.skipTest('install ssh key on travis-ci is complex, I keep the test for manual validation')
+    def test_import_template_directory_should_clone_git_remote_repository_by_ssh(self):
+        self.skipTest(
+            "install ssh key on travis-ci is complex, I keep the test for manual validation"
+        )
 
-    # Assign
-    source = 'git@github.com:FabienArcellier/spike-starter.git'
-    destination = tempfile.mktemp(prefix='spike_starter_integrations_')
+        # Assign
+        source = "git@github.com:FabienArcellier/spike-starter.git"
+        destination = tempfile.mktemp(prefix="spike_starter_integrations_")
 
-    try:
-      # Acts
-      self._tested.import_template_directory(destination, source)
+        try:
+            # Acts
+            self._tested.import_template_directory(destination, source)
 
-      # Assert
-      expected_file = os.path.join(destination, 'setup.py')
-      self.assertTrue(
-        os.path.exists(expected_file),
-        f'clone operation from {source} does not clone {expected_file}')
+            # Assert
+            expected_file = os.path.join(destination, "setup.py")
+            self.assertTrue(
+                os.path.exists(expected_file),
+                f"clone operation from {source} does not clone {expected_file}",
+            )
 
-      expected_path = os.path.join(destination, '.git')
-      self.assertEqual(False, os.path.exists(expected_path),
-                       f'{expected_path} should not be cloned')
+            expected_path = os.path.join(destination, ".git")
+            self.assertEqual(
+                False, os.path.exists(expected_path), f"{expected_path} should not be cloned"
+            )
 
-    finally:
-      shutil.rmtree(destination)
+        finally:
+            shutil.rmtree(destination)

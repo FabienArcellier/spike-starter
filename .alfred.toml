@@ -1,0 +1,6 @@
+[alfred]
+name = "spike-starter"
+description = "spike-starter creates project from blueprint template"
+
+[alfred.project]
+command = ["alfred/*.py"]

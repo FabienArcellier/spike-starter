@@ -24,6 +24,7 @@ decorator = "*"
 GitPython = "*"
 
 [tool.poetry.group.dev.dependencies]
+alfred-cli = "*"
 ruff = "*"
 tox = "*"
 twine = "*"

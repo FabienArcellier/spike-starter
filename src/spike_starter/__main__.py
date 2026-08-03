@@ -12,68 +12,68 @@ from click import Command
 from spike_starter.spike_starter import SpikeStarter
 
 
-@click.command('spike-starter', help='instanciate a project based on a project blueprint')
-@click.option('--template', '-t', default=None, help='template path either local or git path')
-@click.option('--debug', '-d', is_flag=True, help='show debug information')
-@click.option('--version', '-v', is_flag=True, help='show version number')
-@click.option('--noprefix', is_flag=True, help='instanciate a blueprint without date time prefix')
-@click.option('--gitinit', '-g', is_flag=True, help='force initialization of git repository')
-@click.argument('project_names', nargs=-1)
-def main(template: str, debug: bool, version: bool,
-         noprefix: bool, gitinit: bool, project_names: [str]):
+@click.command("spike-starter", help="instanciate a project based on a project blueprint")
+@click.option("--template", "-t", default=None, help="template path either local or git path")
+@click.option("--debug", "-d", is_flag=True, help="show debug information")
+@click.option("--version", "-v", is_flag=True, help="show version number")
+@click.option("--noprefix", is_flag=True, help="instanciate a blueprint without date time prefix")
+@click.option("--gitinit", "-g", is_flag=True, help="force initialization of git repository")
+@click.argument("project_names", nargs=-1)
+def main(
+    template: str, debug: bool, version: bool, noprefix: bool, gitinit: bool, project_names: [str]
+):
 
-  configure_logging(debug)
+    configure_logging(debug)
 
-  if version:
+    if version:
+        try:
+            package_version = _pkg_version("spike-starter")
+        except PackageNotFoundError:
+            package_version = "unknown"
+        print(package_version)
+        sys.exit(0)
+
+    if len(project_names) == 0:
+        print_help_msg(main)
+        sys.exit(2)
+
     try:
-      package_version = _pkg_version('spike-starter')
-    except PackageNotFoundError:
-      package_version = 'unknown'
-    print(package_version)
-    sys.exit(0)
+        template_dir = template
 
-  if len(project_names) == 0:
-    print_help_msg(main)
-    sys.exit(2)
+        has_template = False if not template_dir else True
 
-  try:
-    template_dir = template
+        spike_starter = SpikeStarter(noprefix)
+        for project_name in project_names:
+            project_directory_name = spike_starter.get_project_path(project_name)
+            project_directory = os.path.abspath(project_directory_name)
 
+            if has_template:
+                spike_starter.import_template_directory(project_directory, template_dir)
+            else:
+                spike_starter.create_project_directory(project_directory)
 
-    has_template = False if not template_dir else True
+            if not spike_starter.is_in_git_repository(project_directory) or gitinit:
+                spike_starter.create_git_local_repository(project_directory)
 
-    spike_starter = SpikeStarter(noprefix)
-    for project_name in project_names:
+    except SystemExit:
+        sys.exit(1)
 
-      project_directory_name = spike_starter.get_project_path(project_name)
-      project_directory = os.path.abspath(project_directory_name)
-
-      if has_template:
-        spike_starter.import_template_directory(project_directory, template_dir)
-      else:
-        spike_starter.create_project_directory(project_directory)
-
-      if not spike_starter.is_in_git_repository(project_directory) or gitinit:
-        spike_starter.create_git_local_repository(project_directory)
-
-  except SystemExit:
-    sys.exit(1)
-
-  except Exception:
-    logging.exception("Unexpected error:")
-    sys.exit(1)
+    except Exception:
+        logging.exception("Unexpected error:")
+        sys.exit(1)
 
 
 def configure_logging(debug):
-  if debug:
-    logging.basicConfig(level=logging.DEBUG)
-  else:
-    logging.basicConfig(level=logging.INFO)
+    if debug:
+        logging.basicConfig(level=logging.DEBUG)
+    else:
+        logging.basicConfig(level=logging.INFO)
+
 
 def print_help_msg(command: Command):
-  with click.Context(command, info_name=command.name) as ctx:
-    click.echo(command.get_help(ctx))
+    with click.Context(command, info_name=command.name) as ctx:
+        click.echo(command.get_help(ctx))
 
-if __name__ == '__main__':
 
-  main()
+if __name__ == "__main__":
+    main()
