@@ -22,10 +22,14 @@ class TestDist(unittest.TestCase):
         self.assertTrue(os.path.isdir(DIST_DIR), f"{DIST_DIR} does not exists")
         dist_dir_contents = os.listdir(DIST_DIR)
 
+        current_version_archives = [
+            archive for archive in dist_dir_contents if archive.startswith(package_fullname)
+        ]
         self.assertEqual(
             2,
-            len(dist_dir_contents),
-            f"dist directory contains more than 2 distribution archives : {dist_dir_contents}",
+            len(current_version_archives),
+            f"dist directory does not contain exactly 2 archives for {package_fullname} "
+            f"(found {current_version_archives} among {dist_dir_contents})",
         )
 
         self.assertTrue(

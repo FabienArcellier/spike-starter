@@ -63,7 +63,7 @@ class TestSpikeStarter(unittest.TestCase):
             self._tested.import_template_directory(destination, source)
 
             # Assert
-            expected_file = os.path.join(destination, "setup.py")
+            expected_file = os.path.join(destination, "pyproject.toml")
             self.assertTrue(
                 os.path.exists(expected_file),
                 f"clone operation from {source} does not clone {expected_file}",
