@@ -14,7 +14,7 @@ classifiers = [
 ]
 
 packages = [
-    { include = "spike_starter" },
+    { include = "spike_starter", from = "src" },
 ]
 
 [tool.poetry.dependencies]

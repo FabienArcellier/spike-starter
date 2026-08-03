@@ -9,7 +9,7 @@ cd: _deploy_pypi ## run continuous deployment process on spike-starter
 .PHONY: dist
 dist: ## build distribution archives
 	poetry build
-	poetry run python -u -m unittest discover ${args} spike_starter_tests/continuous_integration
+	poetry run python -u -m unittest discover ${args} tests/continuous_integration
 
 .PHONY: help
 help: ## provides cli help for this make file (default)
@@ -21,7 +21,7 @@ install: ## install python dependencies
 
 .PHONY: lint
 lint: ## run static analysis on spike-starter
-	poetry run ruff check --config pyproject.toml spike_starter
+	poetry run ruff check --config pyproject.toml src/spike_starter tests
 
 .PHONY: deploy_current_version
 deploy_current_version: install ## deploy the current spike-starter version through travis.ci
@@ -32,11 +32,11 @@ tests: tests_units tests_integrations ## run automatic testing on spike-starter
 
 .PHONY: tests_integrations
 tests_integrations: ## run only integrations testing on spike-starter
-	poetry run python -u -m unittest discover ${args} spike_starter_tests/integrations
+	poetry run python -u -m unittest discover ${args} tests/integrations
 
 .PHONY: tests_units
 tests_units: ## run only units testing on spike-starter
-	poetry run python -u -m unittest discover ${args} spike_starter_tests/units
+	poetry run python -u -m unittest discover ${args} tests/units
 
 # Private tasks
 

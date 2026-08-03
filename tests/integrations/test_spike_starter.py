@@ -5,7 +5,7 @@ import tempfile
 import unittest
 
 from spike_starter.__main__ import SpikeStarter
-from spike_starter_tests.fixtures import clone_fixture
+from tests.fixtures import clone_fixture
 
 
 class TestSpikeStarter(unittest.TestCase):
